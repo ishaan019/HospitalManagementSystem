@@ -1,0 +1,87 @@
+server:
+  port: 8090
+
+  error:
+    whitelabel:
+      enabled: false
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      routes:
+        # Patient Service
+        - id: patient-service
+          uri: http://patient-service:8081
+          predicates:
+            - Path=/api/v1/patients/**
+
+        # Doctor & Scheduling Service
+        - id: doctor-service
+          uri: http://doctor-service:8082
+          predicates:
+            - Path=/api/v1/doctors/**
+          filters:
+            - AddResponseHeader=X-Service, DoctorService
+
+        # Appointment Service
+        - id: appointment-service
+          uri: http://appointment-service:8083
+          predicates:
+            - Path=/api/v1/appointments/**
+          filters:
+            - AddResponseHeader=X-Service, AppointmentService
+
+        # Billing Service
+        - id: billing-service
+          uri: http://billing-service:8084
+          predicates:
+            - Path=/api/v1/bills/**
+          filters:
+            - AddResponseHeader=X-Service, BillingService
+
+        # Prescription Service
+        - id: prescription-service
+          uri: http://prescription-service:8085
+          predicates:
+            - Path=/api/v1/prescriptions/**
+          filters:
+            - AddResponseHeader=X-Service, PrescriptionService
+
+        # Payment Service
+        - id: payment-service
+          uri: http://payment-service:8086
+          predicates:
+            - Path=/api/v1/payments/**
+          filters:
+            - AddResponseHeader=X-Service, PaymentService
+
+        # Notification Service
+        - id: notification-service
+          uri: http://notification-service:8087
+          predicates:
+            - Path=/api/v1/notifications/**
+          filters:
+            - AddResponseHeader=X-Service, NotificationService
+
+      globalcors:
+        corsConfigurations:
+          "[/**]":
+            allowedOrigins: "*"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+
+management:
+  endpoint:
+    gateway:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
