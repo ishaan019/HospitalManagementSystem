@@ -40,6 +40,8 @@ public class AppointmentController {
     @PostMapping
     @Operation(summary = "Book a new appointment")
     public ResponseEntity<Appointment> bookAppointment(@RequestBody Appointment appointment) {
+        //Verify patient is
+
         return ResponseEntity.ok(appointmentService.bookAppointment(appointment));
     }
 

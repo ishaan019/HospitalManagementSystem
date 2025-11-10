@@ -1,7 +1,8 @@
-package com.ss.doctorandscheduling.service.dto;
+package com.ss.appointment.service.dto;
 
 import lombok.Builder;
 import lombok.Data;
+
 import java.time.Instant;
 
 @Data

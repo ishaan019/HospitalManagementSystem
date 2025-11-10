@@ -22,3 +22,19 @@ springdoc:
     path: /v3/api-docs
   swagger-ui:
     path: /swagger-ui/index.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info,prometheus"
+  endpoint:
+    prometheus:
+      enabled: true
+  metrics:
+    tags:
+      application: billing-service
+  prometheus:
+    metrics:
+      export:
+        enabled: true

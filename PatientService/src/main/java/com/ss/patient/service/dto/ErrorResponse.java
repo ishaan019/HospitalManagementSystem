@@ -1,4 +1,4 @@
-package com.ss.doctorandscheduling.service.dto;
+package com.ss.patient.service.dto;
 
 import lombok.Builder;
 import lombok.Data;
